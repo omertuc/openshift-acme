@@ -24,7 +24,7 @@ oc create clusterrolebinding openshift-acme --clusterrole=openshift-acme --servi
 If you want to deploy it directly from GitHub use:
 
 ```bash
-oc apply -fhttps://raw.githubusercontent.com/tnozicka/openshift-acme/master/deploy/cluster-wide/{clusterrole,serviceaccount,issuer-letsencrypt-live,deployment}.yaml
+oc apply -fhttps://raw.githubusercontent.com/omertuc/openshift-acme/master/deploy/cluster-wide/{clusterrole,serviceaccount,issuer-letsencrypt-live,deployment}.yaml
 oc create clusterrolebinding openshift-acme --clusterrole=openshift-acme --serviceaccount="$( oc project -q ):openshift-acme" --dry-run -o yaml | oc apply -f -
 ```
 

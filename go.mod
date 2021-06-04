@@ -23,3 +23,5 @@ require (
 	k8s.io/client-go v0.17.0
 	k8s.io/klog v1.0.0
 )
+
+replace github.com/tnozicka/openshift-acme => ./
