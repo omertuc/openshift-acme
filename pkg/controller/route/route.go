@@ -1114,8 +1114,6 @@ func (rc *RouteController) sync(ctx context.Context, key string) error {
 		route.Annotations["tls-key"] = string(certPemData.Key)
 		route.Annotations["tls-certificate"] = string(certPemData.Crt)
 
-		fmt.Errorf("Setting %+v", route)
-
 		// TODO: consider RetryOnConflict with rechecking the managed annotation
 		_, err = rc.routeClient.RouteV1().Routes(routeReadOnly.Namespace).Update(route)
 		if err != nil {
@@ -1201,7 +1199,7 @@ func (rc *RouteController) syncRouteToSecret(ctx context.Context, key string) er
 		return nil
 	}
 
-	secretObjReadOnly, exists, err := rc.kubeInformersForNamespaces.InformersForOrGlobal(namespace).Core().V1().Secrets().Informer().GetIndexer().GetByKey(key)
+	secretObjReadOnly, exists, err := rc.kubeInformersForNamespaces.InformersForOrGlobal(namespace).Core().V1().Secrets().Informer().GetIndexer().GetByKey(fmt.Sprintf("%s/%s", namespace, secretName))
 	if err != nil {
 		klog.Errorf("Fetching object with key %s from store failed with %v", key, err)
 		return err
